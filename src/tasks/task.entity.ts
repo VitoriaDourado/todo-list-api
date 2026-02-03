@@ -7,7 +7,7 @@ import {
 
 @Entity('tasks')
 export class Task {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
