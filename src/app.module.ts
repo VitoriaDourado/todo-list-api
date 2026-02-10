@@ -6,6 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { TodoListModule } from './todo-list/todo-list.module';
+import { Task } from './tasks/task.entity';
+import { TodoList } from './todo-list/entities/todo-list.entity';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -21,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
+      entities: [Task, TodoList, User],
       synchronize: true,
     }),
 
@@ -29,6 +34,8 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
 
     AuthModule,
+
+    TodoListModule,
   ],
   controllers: [AppController],
   providers: [AppService],
