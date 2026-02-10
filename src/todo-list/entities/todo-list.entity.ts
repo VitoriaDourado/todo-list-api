@@ -3,22 +3,21 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Task } from '../../tasks/task.entity';
 
-@Entity('users')
-export class User {
+@Entity('todo_list')
+export class TodoList {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  name: string;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
+  title: string;
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => Task, (task) => task.todoList)
+  tasks: Task[];
 }
