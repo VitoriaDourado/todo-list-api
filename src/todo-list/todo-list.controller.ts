@@ -23,8 +23,8 @@ export class TodoListController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTodoListDto: UpdateTodoListDto) {
-    return this.todoListService.update(+id, updateTodoListDto);
+  update(@Param('id') id: string, @Body() updateDto: UpdateTodoListDto) {
+    return this.todoListService.update(+id, updateDto);
   }
 
   @Delete(':id')

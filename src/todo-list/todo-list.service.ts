@@ -4,7 +4,6 @@ import { UpdateTodoListDto } from './dto/update-todo-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TodoList } from './entities/todo-list.entity';
-import { todo } from 'node:test';
 
 @Injectable()
 export class TodoListService {
@@ -15,7 +14,7 @@ export class TodoListService {
 
   async create(createTodoListDto: CreateTodoListDto) {
     const todoList = this.repo.create(createTodoListDto);
-    if(!todoList){
+    if (!todoList) {
       throw new Error('todo list not created');
     }
     return this.repo.save(todoList);
@@ -29,7 +28,7 @@ export class TodoListService {
     return `This action returns a #${id} todoList`;
   }
 
-  async update(id: string, updateTodoListDto: UpdateTodoListDto) {
+  async update(id: number, updateTodoListDto: UpdateTodoListDto) {
     const todoListUpdate = await this.repo.findOneBy({ id });
 
     if (!todoListUpdate) {
