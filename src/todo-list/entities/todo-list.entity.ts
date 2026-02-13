@@ -9,8 +9,8 @@ import { Task } from '../../tasks/task.entity';
 
 @Entity('todo_list')
 export class TodoList {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   title: string;
