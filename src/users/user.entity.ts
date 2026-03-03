@@ -3,7 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import { TodoList } from '../todo-list/entities/todo-list.entity';
 
 @Entity('users')
 export class User {
@@ -21,4 +24,7 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => TodoList, (todoList) => todoList.user)
+  todoLists: TodoList[];
 }
