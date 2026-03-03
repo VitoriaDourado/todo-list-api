@@ -2,12 +2,14 @@ import { DataSource } from 'typeorm';
 import { Task } from './src/tasks/task.entity';
 import { TodoList } from './src/todo-list/entities/todo-list.entity';
 import { User } from './src/users/user.entity';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export default new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
-  username: process.env.DB_USER,
+  username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [Task, TodoList, User],

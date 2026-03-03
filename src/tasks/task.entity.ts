@@ -26,7 +26,9 @@ export class Task {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => TodoList, (todoList) => todoList.tasks)
+  @ManyToOne(() => TodoList, (todoList) => todoList.tasks, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'todo_list_id' })
   todoList: TodoList;
 }
