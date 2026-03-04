@@ -21,11 +21,11 @@ export class TodoListService {
   }
 
   findAll() {
-    return `This action returns all todoList`;
+    return this.repo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} todoList`;
+    return this.repo.findOneBy({ id });
   }
 
   async update(id: number, updateTodoListDto: UpdateTodoListDto) {
