@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -13,5 +13,10 @@ export class AuthController {
   @Post('register')
   register(@Body() body: { email: string; password: string }) {
     return this.authService.register(body.email, body.password);
+  }
+
+  @Get('user')
+  user() {
+      return { message: 'Rota protegida, usuário autenticado!' };
   }
 }

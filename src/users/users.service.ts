@@ -33,4 +33,8 @@ export class UsersService {
       select: ['id', 'name', 'email', 'createdAt'],
     });
   }
+
+  findOne(id: string) {
+    return this.repo.findOneBy({ id });
+  }
 }
