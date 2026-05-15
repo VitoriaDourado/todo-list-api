@@ -19,6 +19,6 @@ export class AuthController {
   @Get('user')
   @UseGuards(AuthGuard('jwt'))
   user(@Req() req: any) {
-    return this.authService.getUser(req.user.id);
+    return this.authService.getUser((req.user as { id: string }).id);
   }
 }
