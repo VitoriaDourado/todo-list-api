@@ -25,6 +25,12 @@ export class TodoList {
   @Column({ default: false })
   status: boolean;
 
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  dueDate: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
