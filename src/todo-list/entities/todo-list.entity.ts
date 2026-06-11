@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+
 import { Task } from '../../tasks/task.entity';
 import { User } from '../../users/user.entity';
 
@@ -23,6 +24,12 @@ export class TodoList {
 
   @Column({ default: false })
   status: boolean;
+
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  dueDate: Date;
 
   @CreateDateColumn()
   createdAt: Date;
