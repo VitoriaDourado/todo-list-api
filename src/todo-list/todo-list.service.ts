@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreateTodoListDto } from './dto/create-todo-list.dto';
 import { UpdateTodoListDto } from './dto/update-todo-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { TodoList } from './entities/todo-list.entity';
+
 
 @Injectable()
 export class TodoListService {
@@ -12,20 +13,35 @@ export class TodoListService {
     private readonly repo: Repository<TodoList>,
   ) {}
 
-  async create(createTodoListDto: CreateTodoListDto) {
-    const todoList = this.repo.create(createTodoListDto);
-    if (!todoList) {
-      throw new Error('todo list not created');
-    }
+  async create(createTodoListDto: CreateTodoListDto, userId: string) {
+    const todoList = this.repo.create({
+      ...createTodoListDto,
+      user: {
+        id: userId,
+      },
+    });
+
     return this.repo.save(todoList);
   }
 
-  findAll() {
-    return this.repo.find();
+  findAll(userId: string) {
+    return this.repo.find({
+      where: {
+        archivedAt: IsNull(),
+        user: {
+          id: userId,
+        },
+      },
+
+      relations: ['user'],
+    });
   }
 
   findOne(id: number) {
-    return this.repo.findOneBy({ id });
+    return this.repo.findOne({
+      where: { id },
+      relations: ['user'],
+    });
   }
 
   async update(id: number, updateTodoListDto: UpdateTodoListDto) {
@@ -40,7 +56,13 @@ export class TodoListService {
     return this.repo.save(todoListUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todoList`;
+  async remove(id: number) {
+    const todoList = await this.repo.findOneBy({ id });
+
+    if (!todoList) {
+      throw new Error('Todo list not found');
+    }
+    todoList.archivedAt = new Date();
+    return this.repo.save(todoList);
   }
 }

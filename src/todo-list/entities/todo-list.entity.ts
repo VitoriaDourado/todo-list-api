@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+
 import { Task } from '../../tasks/task.entity';
 import { User } from '../../users/user.entity';
 
@@ -24,6 +25,18 @@ export class TodoList {
   @Column({ default: false })
   status: boolean;
 
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  dueDate: Date;
+
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  archivedAt: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -35,4 +48,5 @@ export class TodoList {
 
   @OneToMany(() => Task, (task) => task.todoList)
   tasks: Task[];
+
 }
