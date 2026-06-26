@@ -31,6 +31,12 @@ export class TodoList {
   })
   dueDate: Date;
 
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  archivedAt: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -42,4 +48,5 @@ export class TodoList {
 
   @OneToMany(() => Task, (task) => task.todoList)
   tasks: Task[];
+
 }
