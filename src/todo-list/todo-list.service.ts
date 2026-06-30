@@ -32,15 +32,12 @@ export class TodoListService {
           id: userId,
         },
       },
-
-      relations: ['user'],
     });
   }
 
   findOne(id: number) {
     return this.repo.findOne({
       where: { id },
-      relations: ['user'],
     });
   }
 
