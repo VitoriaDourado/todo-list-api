@@ -34,7 +34,15 @@ export class UsersService {
     });
   }
 
-  findOne(id: string) {
-    return this.repo.findOneBy({ id });
+  async findOne(id: string) {
+    const user = await this.repo.findOne({
+      where: { id },
+    });
+
+    if (!user) return null;
+
+    const { password, ...userWithoutPassword } = user;
+
+    return userWithoutPassword;
   }
 }
