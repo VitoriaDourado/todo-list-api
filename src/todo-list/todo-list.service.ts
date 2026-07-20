@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateTodoListDto } from './dto/create-todo-list.dto';
 import { UpdateTodoListDto } from './dto/update-todo-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, IsNull } from 'typeorm';
+import { Repository, IsNull, Not } from 'typeorm';
 import { TodoList } from './entities/todo-list.entity';
-
 
 @Injectable()
 export class TodoListService {
@@ -28,6 +27,17 @@ export class TodoListService {
     return this.repo.find({
       where: {
         archivedAt: IsNull(),
+        user: {
+          id: userId,
+        },
+      },
+    });
+  }
+
+  findArchived(userId: string) {
+    return this.repo.find({
+      where: {
+        archivedAt: Not(IsNull()),
         user: {
           id: userId,
         },
