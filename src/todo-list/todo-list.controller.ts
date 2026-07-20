@@ -43,7 +43,14 @@ export class TodoListController {
     return this.todoListService.findAll(req.user.id);
   }
 
+  @Get('archived')
+  @UseGuards(AuthGuard('jwt'))
+  findArchived(@Req() req: AuthRequest) {
+    return this.todoListService.findArchived(req.user.id);
+  }
+
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.todoListService.findOne(+id);
   }
