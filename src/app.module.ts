@@ -10,6 +10,10 @@ import { TodoListModule } from './todo-list/todo-list.module';
 import { Task } from './tasks/task.entity';
 import { TodoList } from './todo-list/entities/todo-list.entity';
 import { User } from './users/user.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -29,6 +33,12 @@ import { User } from './users/user.entity';
       synchronize: true,
     }),
 
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true,
+    }),
+
     TasksModule,
 
     UsersModule,
@@ -38,6 +48,6 @@ import { User } from './users/user.entity';
     TodoListModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}
